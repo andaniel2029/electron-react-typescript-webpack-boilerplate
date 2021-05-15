@@ -6,6 +6,8 @@ import * as url from 'url';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { BrowserWindow, app } from 'electron';
 
+const chokidar = require('chokidar');
+
 let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow(): void {
@@ -26,7 +28,17 @@ function createWindow(): void {
       protocol: 'file:',
       slashes: true,
     }),
-  ).finally(() => { /* no action */ });
+  ).finally(() => { 
+    /* no action */
+    console.log('chokidar +++', chokidar);
+    // One-liner for current directory
+    chokidar.watch('.').on('all', (event: any, path: any) => {
+      console.log('event +++', event);
+      console.log('path +++', path);
+      alert('event is ' + event);
+      alert('path is ' + path);
+    })
+  });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {

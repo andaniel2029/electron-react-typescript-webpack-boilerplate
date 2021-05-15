@@ -30,6 +30,10 @@ const commonConfig = {
   module: {
     rules: [
       {
+        test: /.node$/,
+        loader: 'node-loader',
+      },
+      {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'ts-loader',
